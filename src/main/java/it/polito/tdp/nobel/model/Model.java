@@ -22,14 +22,48 @@ public class Model {
 		soluzioneMigliore = new HashSet<Esame>();
 		mediaSoluzioneMigliore=0;
 		
-		cerca(parziale,0,numeroCrediti);//funzione ricorsiva
-		
+	//	cerca1(parziale,0,numeroCrediti);//funzione ricorsiva
+		cerca2(parziale,0,numeroCrediti);
 			
 		return soluzioneMigliore;	
 	}
 
+	public void cerca2(Set<Esame> parziale, int L, int m) {
+		//casi terminali
+				int crediti = sommaCrediti(parziale);
+				
+				if(crediti>m) { //controllare i crediti
+					
+				}
+				if(crediti==m) {
+					double media = calcolaMedia(parziale);
+					if(media>mediaSoluzioneMigliore) {
+						soluzioneMigliore = new HashSet<>(parziale); //sovrascrivere
+						mediaSoluzioneMigliore = media;
+					}
+					return; //non creare sotto-alberi inutili ( L>m)
+				}
+				
+				//siccuramente, crediti<m: 
+				
+				// 1) non ci sono più esami da aggiungere: L=m
+				if(L==partenza.size()) {
+					return;
+				}
+				
+				//generazione dei sotto-problemi
+				//partenza[L] è da aggiungere oppure no? Provo entrambe le cose
+				parziale.add(partenza.get(L));
+				cerca2(parziale,L+1,m);
+				parziale.remove(partenza.get(L));
+				cerca2(parziale,L+1,m);
+				
+				
+	}
+	
+	
 	/*COMPLESSITA: N! */
-	private void cerca(Set<Esame> parziale, int L, int m) {
+	private void cerca1(Set<Esame> parziale, int L, int m) {
 		//casi terminali
 		int crediti = sommaCrediti(parziale);
 		
@@ -56,7 +90,7 @@ public class Model {
 		for(Esame e : partenza) { //lascio partenza come è
 			if(!parziale.contains(e)) {
 				parziale.add(e);
-				cerca(parziale,L+1,m);
+				cerca1(parziale,L+1,m);
 				parziale.remove(e); //backtracking
 			}
 		}

@@ -8,7 +8,7 @@ OUTPUT:
 	 	* media Esame.voto() sia MAX
 
 	 	
--->APPROCCIO 1 (il piu "stupido"):
+-->APPROCCIO 1 (il piu "stupido"): complessita=N!(fattoriale)
 
 Ad ogni livello della ricorsione, aggiungo un esame:
  devo decidere quale, li provo tutti
@@ -45,7 +45,22 @@ Ad ogni livello della ricorsione, aggiungo un esame:
  		*se >m ---> scarto PARZIALE e non vado avanti
  		*se =m ---> controllo soluzione parziale
  
- --->APPROCCIO 2
+ --->APPROCCIO 2 : complessita = 2^N
  
+ -Livello della ricorsine (L):
+ 	*Indica quale corso sto decidendo mettere (oppure no) nella soluzione
+ 	
+ 	supponiamo di avere PARTENZA={e1,e2,e3,..,en}
+ 	
+ 	L=0 --> considero e1
+ 		*lo metto ---> PARZILAE ={e1}
+ 			L=1---> considero e2
+ 			*lo metto --> PARZIALE ={e1,e2}
+ 			*non lo metto ---> PARZIALE={e1}
+ 		*non lo metto ---> PARZIALE ={}
+ 			L=1--->Considero e2
+ 			*lo metto --> PARZIALE = {e2}
+ 			*non lo metto ---> PARZIALE={}
+ 		
  	
  
